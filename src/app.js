@@ -1,9 +1,13 @@
 const express = require('express');
-const userRouter = require('./resources/users/user.router');
+const bodyParser = require('body-parser')
+const menusRouter = require('./resources/menu/menu.router');
+const dishesRouter = require('./resources/dish/dish.router');
+const categoriesRouter = require('./resources/category/category.router');
 
 const app = express();
 
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
@@ -13,6 +17,8 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-app.use('/users', userRouter);
+app.use('/menus', menusRouter);
+app.use('/dishes', dishesRouter);
+app.use('/categories', categoriesRouter);
 
 module.exports = app;
