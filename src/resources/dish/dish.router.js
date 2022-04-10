@@ -22,7 +22,11 @@ router.route('/:dishId').get(async (req, res) => {
 });
 
 router.route('/:dishId').put(async (req, res) => {
-  await dishService.updateById(req.params.dishId, req.body);
+  const {categoryId, description, title, photo, isPublish, ingredients, price} = req.body
+  const {dishId} = req.params.dishId
+  await dishService.updateById(dishId, new Dish({
+    categoryId, description, title, photo, isPublish, ingredients, price, dishId
+  }));
   res.status(200).end();
 });
 

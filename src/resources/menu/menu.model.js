@@ -1,8 +1,8 @@
 const uuid = require('uuid');
 
 class Menu {
-  constructor({title, photo, isPublish}) {
-    this.id = uuid.v4()
+  constructor(title, photo, isPublish, id = uuid.v4()) {
+    this.id = id;
     this.title = title;
     this.photo = photo;
     this.isPublish = isPublish;

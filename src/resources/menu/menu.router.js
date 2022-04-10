@@ -21,7 +21,7 @@ router.route('/').get(async (req, res) => {
 
 router.route('/').post(async (req, res) => {
   const {title, photo, isPublish} = req.body
-  await menuService.insertNew(new Menu({title, photo, isPublish}));
+  await menuService.insertNew(new Menu(title, photo, isPublish));
   res.status(200).end();
 });
 
@@ -32,7 +32,8 @@ router.route('/:menuId').get(async (req, res) => {
 
 router.route('/:menuId').put(async (req, res) => {
   const {title, photo, isPublish} = req.body
-  await menuService.updateById(req.params.menuId, new Menu({title, photo, isPublish}));
+  const {menuId} = req.params;
+  await menuService.updateById(menuId, new Menu(title, photo, isPublish, menuId));
   res.status(200).end();
 });
 

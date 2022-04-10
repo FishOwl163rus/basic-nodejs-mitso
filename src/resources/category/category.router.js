@@ -25,7 +25,9 @@ router.route('/:categoryId/dishes').get(async (req, res) => {
 });
 
 router.route('/:categoryId').put(async (req, res) => {
-  await categoryService.updateById(req.params.categoryId, req.body);
+  const {menuId, title, photo, isVisible} = req.body
+  const {categoryId} = req.params
+  await categoryService.updateById(categoryId, new Category({menuId, photo, title, isVisible, categoryId}));
   res.status(200).end();
 });
 

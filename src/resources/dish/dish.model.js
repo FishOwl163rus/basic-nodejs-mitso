@@ -1,8 +1,8 @@
 const uuid = require('uuid');
 
 class Dish {
-  constructor({categoryId, description, title, photo, isPublish, ingredients, price}) {
-    this.id = uuid.v4()
+  constructor(categoryId, description, title, photo, isPublish, ingredients, price, id = uuid.v4()) {
+    this.id = id
     this.categoryId = categoryId
     this.title = title
     this.description = description

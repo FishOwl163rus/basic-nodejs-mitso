@@ -1,0 +1,102 @@
+### Insert menu model
+POST http://localhost:4000/menus
+Content-Type: application/json
+
+{
+  "title": "Dinner",
+  "photo": "https://picture.com/32x32",
+  "isPublish": false
+}
+
+### Get menu models
+GET http://localhost:4000/menus
+
+### Get menu model by uuid
+GET http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+
+### Update menu model
+PUT http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+Content-Type: application/json
+
+{
+  "title": "Lunch",
+  "photo": "https://picture.com/32x32",
+  "isPublish": false
+}
+
+### Get categories from menu model
+GET http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1/categories
+
+### Delete menu by id
+DELETE http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+
+### Insert category model
+POST http://localhost:4000/categories
+Content-Type: application/json
+
+{
+  "menuId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
+  "title": "Alcohol",
+  "photo": "https://picture.com/32x32",
+  "isVisible": true
+}
+
+### Get category models
+GET http://localhost:4000/categories
+
+### Get category model by uuid
+GET http://localhost:4000/categories/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+
+### Update category model
+PUT http://localhost:4000/categories/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+Content-Type: application/json
+
+{
+  "menuId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
+  "title": "Alcohol",
+  "photo": "https://picture.com/32x32",
+  "isVisible": false
+}
+
+### Get dishes from category model
+GET http://localhost:4000/categories/1c898543-ea83-4ca8-a3d7-8a4f4df261d1/dishes
+
+### Delete category by id
+DELETE http://localhost:4000/categories/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+
+### Insert category model
+POST http://localhost:4000/dishes
+Content-Type: application/json
+
+{
+  "categoryId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
+  "title": "Луковый угар",
+  "description": "some useful info",
+  "photo": "https://picture.com/32x32",
+  "isPublish": true,
+  "ingredients": ["head", "arm", "leg", "eye", "nose"],
+  "price": 300.0
+}
+
+### Get category models
+GET http://localhost:4000/dishes
+
+### Get category model by uuid
+GET http://localhost:4000/dishes/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+
+### Update category model
+PUT http://localhost:4000/dishes/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+Content-Type: application/json
+
+{
+  "categoryId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
+  "title": "Луковый угар",
+  "description": "some useful info",
+  "photo": "https://picture.com/32x32",
+  "isPublish": false,
+  "ingredients": ["head", "arm", "leg", "eye", "nose"],
+  "price": 300.0
+}
+
+### Delete category by id
+DELETE http://localhost:4000/dishes/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
