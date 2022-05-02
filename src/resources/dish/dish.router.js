@@ -10,9 +10,9 @@ router.route('/').get(async (req, res) => {
 
 router.route('/').post(async (req, res) => {
   const {categoryId, description, title, photo, isPublish, ingredients, price} = req.body
-  await dishService.insertNew(new Dish({
+  await dishService.insertNew(new Dish(
     categoryId, description, title, photo, isPublish, ingredients, price
-  }));
+  ));
   res.status(200).end();
 });
 
@@ -23,10 +23,10 @@ router.route('/:dishId').get(async (req, res) => {
 
 router.route('/:dishId').put(async (req, res) => {
   const {categoryId, description, title, photo, isPublish, ingredients, price} = req.body
-  const {dishId} = req.params.dishId
-  await dishService.updateById(dishId, new Dish({
+  const {dishId} = req.params
+  await dishService.updateById(dishId, new Dish(
     categoryId, description, title, photo, isPublish, ingredients, price, dishId
-  }));
+  ));
   res.status(200).end();
 });
 
