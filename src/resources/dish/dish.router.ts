@@ -18,7 +18,7 @@ router.route('/').post(async (req: Request, res: Response) => {
 });
 
 router.route('/:dishId').get(async (req: Request, res: Response) => {
-  const menus = await dishService.getById(req.params["dishId"]);
+  const menus = await dishService.getById(req.params.dishId);
   res.json(menus);
 });
 
@@ -32,7 +32,7 @@ router.route('/:dishId').put(async (req: Request, res: Response) => {
 });
 
 router.route('/:dishId').delete(async (req: Request, res: Response) => {
-  await dishService.deleteById(req.params["dishId"]);
+  await dishService.deleteById(req.params.dishId);
   res.status(200).end();
 });
 

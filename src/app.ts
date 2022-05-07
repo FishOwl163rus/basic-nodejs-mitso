@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
+
 import bodyParser from "body-parser";
+import dotenv from 'dotenv';
 import { MenuRouter } from "./resources/menu/menu.router";
 import { DishRouter} from './resources/dish/dish.router';
 import { CategoryRouter } from './resources/category/category.router';
-import dotenv from 'dotenv';
 
 dotenv.config();
 const app: express.Application = express();
