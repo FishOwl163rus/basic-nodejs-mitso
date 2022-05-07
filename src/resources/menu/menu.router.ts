@@ -16,7 +16,7 @@ router.route('/').post(async (req: Request, res: Response) => {
 });
 
 router.route('/:menuId').get(async (req: Request, res: Response) => {
-  const menus = await menuService.getById(req.params.menuId);
+  const menus = await menuService.getById(req.params["menuId"]);
   res.json(menus);
 });
 
@@ -28,12 +28,12 @@ router.route('/:menuId').put(async (req: Request, res: Response) => {
 });
 
 router.route('/:menuId').delete(async (req: Request, res: Response) => {
-  await menuService.deleteById(req.params.menuId);
+  await menuService.deleteById(req.params["menuId"]);
   res.status(200).end();
 });
 
 router.route('/:menuId/categories').get(async (req: Request, res: Response) => {
-  await menuService.getMenuCategories(req.params.menuId);
+  await menuService.getMenuCategories(req.params["menuId"]);
   res.status(200).end();
 });
 

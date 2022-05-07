@@ -16,12 +16,12 @@ router.route('/').post(async (req: Request, res: Response) => {
 });
 
 router.route('/:categoryId').get(async (req: Request, res: Response) => {
-  const categories = await categoryService.getById(req.params.categoryId);
+  const categories = await categoryService.getById(req.params["categoryId"]);
   res.json(categories);
 });
 
 router.route('/:categoryId/dishes').get(async (req: Request, res: Response) => {
-  const dishes = await categoryService.getDishes(req.params.categoryId);
+  const dishes = await categoryService.getDishes(req.params["categoryId"]);
   res.json(dishes);
 });
 
@@ -33,7 +33,7 @@ router.route('/:categoryId').put(async (req: Request, res: Response) => {
 });
 
 router.route('/:categoryId').delete(async (req: Request, res: Response) => {
-  await categoryService.deleteById(req.params.categoryId);
+  await categoryService.deleteById(req.params["categoryId"]);
   res.status(200).end();
 });
 
