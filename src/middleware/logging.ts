@@ -9,7 +9,7 @@ export const logger: winston.Logger = winston.createLogger({
     new winston.transports.File({
       level: 'error',
       format: winston.format.printf(info => `error: [${moment.utc(new Date().toUTCString()).tz("Europe/Minsk").format('DD.MM.YYYY HH:mm:ss')}]: ${info.message}`),
-      filename: path.join(path.join(__dirname, "../"), `${moment.utc(new Date().toUTCString()).tz("Europe/Minsk").format('DD.MM.YYYY')}_errors.log`),
+      filename: path.join(path.join(__dirname, "../logs"), `${moment.utc(new Date().toUTCString()).tz("Europe/Minsk").format('DD.MM.YYYY')}_errors.log`),
       handleExceptions: true,
       maxsize: 5242880,
       maxFiles: 5
@@ -17,7 +17,7 @@ export const logger: winston.Logger = winston.createLogger({
     new winston.transports.File({
       level: 'http',
       format: format.simple(),
-      filename: path.join(path.join(__dirname, "../"), `${moment.utc(new Date().toUTCString()).tz("Europe/Minsk").format('DD.MM.YYYY')}.log`),
+      filename: path.join(path.join(__dirname, "../logs"), `${moment.utc(new Date().toUTCString()).tz("Europe/Minsk").format('DD.MM.YYYY')}.log`),
       handleExceptions: true,
       maxsize: 5242880,
       maxFiles: 5
