@@ -3,17 +3,6 @@ const menuService = require('./menu.service');
 require('body-parser')
 const Menu = require("./menu.model");
 
-/**
- * @openapi
- * /:
- *   get:
- *     description: Возвращает все доступные меню
- *     tags: [menus]
- *     parameters:
- *     responses:
- *       200:
- *         description: JSON массив
- */
 router.route('/').get(async (req, res) => {
   const menus = await menuService.getAll();
   res.json(menus);
@@ -43,8 +32,8 @@ router.route('/:menuId').delete(async (req, res) => {
 });
 
 router.route('/:menuId/categories').get(async (req, res) => {
-  await menuService.getMenuCategories(req.params.menuId);
-  res.status(200).end();
+  const categories = await menuService.getMenuCategories(req.params.menuId);
+  res.json(categories);
 });
 
 module.exports = router;
