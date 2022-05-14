@@ -33,8 +33,8 @@ router.route('/:menuId').delete(async (req: Request, res: Response) => {
 });
 
 router.route('/:menuId/categories').get(async (req: Request, res: Response) => {
-  await menuService.getMenuCategories(req.params["menuId"]);
-  res.status(200).end();
+  const categories = await menuService.getMenuCategories(req.params["menuId"]);
+  res.json(categories);
 });
 
 export const MenuRouter: Router = router;
