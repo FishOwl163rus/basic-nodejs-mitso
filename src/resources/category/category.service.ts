@@ -1,10 +1,10 @@
 import categoryRepository from "./category.repository";
 import { Category } from "./category.entity";
 import { Dish } from "../dish/dish.entity";
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
 class CategoryService {
-  public createCategory = (category: Omit<Category, 'id' | 'menu' | 'dishes'>): Promise<Category> => categoryRepository.createCategory(category)
+  public createCategory = (category: Omit<Category, 'id' | 'menu' | 'dishes'>): Promise<InsertResult> => categoryRepository.createCategory(category)
 
   public getAll = (): Promise<Category[]> => categoryRepository.getAll()
 

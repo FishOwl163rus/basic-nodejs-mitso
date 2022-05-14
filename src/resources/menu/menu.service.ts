@@ -1,10 +1,10 @@
 import menuRepository from "./menu.repository";
 import { Menu } from "./menu.entity";
 import { Category } from "../category/category.entity";
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
 class MenuService {
-  public createMenu = ({title, photo, is_publish}: Omit<Menu, 'id' | 'categories'>): Promise<Menu> => menuRepository.createMenu({title, photo, is_publish})
+  public createMenu = ({title, photo, is_publish}: Omit<Menu, 'id' | 'categories'>): Promise<InsertResult> => menuRepository.createMenu({title, photo, is_publish})
 
   public getAll = (): Promise<Menu[]> => menuRepository.getAll()
 

@@ -10,9 +10,9 @@ router.route('/').get(async (_req: Request, res: Response) => {
 
 router.route('/').post(async (req: Request, res: Response) => {
   const {title, photo, is_publish} = req.body
-  const menu = await menuService.createMenu({title, photo, is_publish});
+  const result = await menuService.createMenu({title, photo, is_publish});
 
-  if (menu) {
+  if (result.raw.length > 0) {
     res.status(201).end();
   } else {
     res.status(400).end();

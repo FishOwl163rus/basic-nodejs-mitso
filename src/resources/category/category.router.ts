@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
 import categoryService from "./category.service";
 const router: Router = Router();
-
 router.route('/').get(async (_req: Request, res: Response) => {
   const menus = await categoryService.getAll();
   res.json(menus);
@@ -9,9 +8,9 @@ router.route('/').get(async (_req: Request, res: Response) => {
 
 router.route('/').post(async (req: Request, res: Response) => {
   const {menuId, title, photo, is_visible} = req.body
-  const category = await categoryService.createCategory({menuId, title, photo, is_visible});
+  const result = await categoryService.createCategory({menuId, title, photo, is_visible});
 
-  if (category) {
+  if (result.raw.length > 0) {
     res.status(201).end();
   } else {
     res.status(400).end();

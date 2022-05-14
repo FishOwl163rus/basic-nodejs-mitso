@@ -10,7 +10,7 @@ class CategoryRepository {
     category.title = title;
     category.photo = photo;
     category.is_visible = is_visible;
-    return AppDataSource.getRepository(Category).save(category);
+    return AppDataSource.getRepository(Category).insert(category);
   }
 
   public async getAll() {

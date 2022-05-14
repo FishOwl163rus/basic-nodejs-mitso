@@ -12,7 +12,7 @@ class DishRepository {
     dish.is_publish = is_publish;
     dish.ingredients = ingredients;
     dish.price = price;
-    return AppDataSource.getRepository(Dish).save(dish);
+    return AppDataSource.getRepository(Dish).insert(dish);
   }
 
   public async getAll(): Promise<Dish[]> {

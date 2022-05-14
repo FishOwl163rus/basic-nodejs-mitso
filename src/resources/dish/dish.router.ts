@@ -10,11 +10,11 @@ router.route('/').get(async (_req: Request, res: Response) => {
 
 router.route('/').post(async (req: Request, res: Response) => {
   const {categoryId, description, title, photo, is_publish, ingredients, price} = req.body
-  const dish = await dishService.createDish({
+  const result = await dishService.createDish({
     categoryId, description, title, photo, is_publish, ingredients, price
   });
 
-  if (dish) {
+  if (result.raw.length > 0) {
     res.status(201).end();
   } else {
     res.status(400).end();

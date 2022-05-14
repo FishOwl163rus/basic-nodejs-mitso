@@ -9,7 +9,7 @@ class MenuRepository {
     menu.title = title;
     menu.photo = photo;
     menu.is_publish = is_publish;
-    return AppDataSource.getRepository(Menu).save(menu);
+    return AppDataSource.getRepository(Menu).insert(menu);
   }
 
   public async getAll(): Promise<Menu[]> {

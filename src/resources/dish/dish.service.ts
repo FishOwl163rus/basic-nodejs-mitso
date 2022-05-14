@@ -1,9 +1,9 @@
 import DishRepository from "./dish.repository";
 import { Dish } from "./dish.entity";
-import { DeleteResult, UpdateResult } from "typeorm";
+import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
 class DishService {
-  public createDish = (dish: Omit<Dish, 'id' | 'category'>): Promise<Dish> => DishRepository.createDish(dish)
+  public createDish = (dish: Omit<Dish, 'id' | 'category'>): Promise<InsertResult> => DishRepository.createDish(dish)
 
   public getAll = (): Promise<Dish[]> => DishRepository.getAll()
 
