@@ -1,19 +1,20 @@
-import categoryRepository from "./category.memory.repository";
-import { Category } from "./category.model";
-import { Dish } from "../dish/dish.model";
+import categoryRepository from "./category.repository";
+import { Category } from "./category.entity";
+import { Dish } from "../dish/dish.entity";
+import { DeleteResult, UpdateResult } from "typeorm";
 
 class CategoryService {
-  public insertNew = (category: Category): Promise<void> => categoryRepository.insertNew(category)
+  public createCategory = (category: Omit<Category, 'id' | 'menu' | 'dishes'>): Promise<Category> => categoryRepository.createCategory(category)
 
   public getAll = (): Promise<Category[]> => categoryRepository.getAll()
 
-  public getById = (id: string | undefined): Promise<Category[]> => categoryRepository.getById(id)
+  public getById = (id: string): Promise<Category | null> => categoryRepository.getById(id)
 
-  public updateById = (id: string | undefined, category: Category): Promise<void> => categoryRepository.updateById(id, category)
+  public updateById = (id: string, category: Omit<Category, 'id' | 'menu' | 'dishes'>): Promise<UpdateResult> => categoryRepository.updateById(id, category)
 
-  public deleteById = (id: string | undefined): Promise<void> => categoryRepository.deleteById(id)
+  public deleteById = (id: string): Promise<DeleteResult> => categoryRepository.deleteById(id)
 
-  public getDishes = (id: string | undefined): Promise<Dish[]> => categoryRepository.getDishes(id)
+  public getDishes = (id: string): Promise<Dish[]> => categoryRepository.getDishes(id)
 }
 
 export default new CategoryService()

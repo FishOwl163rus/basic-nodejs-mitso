@@ -1,6 +1,5 @@
 import { Request, Response, Router } from "express";
 import dishService from "./dish.service";
-import { Dish } from "./dish.model";
 
 const router: Router = Router();
 
@@ -10,30 +9,44 @@ router.route('/').get(async (_req: Request, res: Response) => {
 });
 
 router.route('/').post(async (req: Request, res: Response) => {
-  const {categoryId, description, title, photo, isPublish, ingredients, price} = req.body
-  await dishService.insertNew(new Dish(
-    categoryId, description, title, photo, isPublish, ingredients, price
-  ));
-  res.status(200).end();
+  const {categoryId, description, title, photo, is_publish, ingredients, price} = req.body
+  const dish = await dishService.createDish({
+    categoryId, description, title, photo, is_publish, ingredients, price
+  });
+
+  if (dish) {
+    res.status(201).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:dishId').get(async (req: Request, res: Response) => {
-  const menus = await dishService.getById(req.params["dishId"]);
+  const menus = await dishService.getById(req.params["dishId"] || '');
   res.json(menus);
 });
 
 router.route('/:dishId').put(async (req: Request, res: Response) => {
-  const {categoryId, description, title, photo, isPublish, ingredients, price} = req.body
+  const {categoryId, description, title, photo, is_publish, ingredients, price} = req.body
   const {dishId} = req.params
-  await dishService.updateById(dishId, new Dish(
-    categoryId, description, title, photo, isPublish, ingredients, price, dishId
-  ));
-  res.status(200).end();
+  const result = await dishService.updateById(dishId || '', {
+    categoryId, description, title, photo, is_publish, ingredients, price
+  });
+
+  if (result.affected && result.affected > 0) {
+    res.status(200).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:dishId').delete(async (req: Request, res: Response) => {
-  await dishService.deleteById(req.params["dishId"]);
-  res.status(200).end();
+  const result = await dishService.deleteById(req.params["dishId"] || '');
+  if (result.affected && result.affected > 0){
+    res.status(200).end()
+  } else {
+    res.status(400).end()
+  }
 });
 
 export const DishRouter: Router = router;

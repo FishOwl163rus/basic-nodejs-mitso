@@ -11,7 +11,10 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts --fix src/",
     "prestart": "node -r ts-node/register ./src/server.ts",
-    "start": "nodemon --watch src --exec npm start --ext ts"
+    "start": "nodemon --watch src --exec npm start --ext ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "yarn typeorm migration:generate ./src/migrations/init -d src/common/appDataSource.ts",
+    "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/common/appDataSource.ts"
   },
   "keywords": [
     "rest",
@@ -53,7 +56,10 @@
     "express": "4.17.1",
     "moment-timezone": "^0.5.34",
     "morgan": "^1.10.0",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
     "rotating-file-stream": "^3.0.3",
+    "typeorm": "^0.3.6",
     "uuid": "8.3.2",
     "winston": "^3.7.2"
   },

@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "title": "Dinner",
   "photo": "https://picture.com/32x32",
-  "isPublish": false
+  "is_publish": false
 }
 
 ### Get menu models
@@ -21,24 +21,24 @@ Content-Type: application/json
 {
   "title": "Lunch",
   "photo": "https://picture.com/32x32",
-  "isPublish": false
+  "is_publish": false
 }
 
 ### Get categories from menu model
 GET http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1/categories
 
 ### Delete menu by id
-DELETE http://localhost:4000/menus/1c898543-ea83-4ca8-a3d7-8a4f4df261d1
+DELETE http://localhost:4000/menus/f86449c6-9387-437b-8ea5-1f6e77521eb8
 
 ### Insert category model
 POST http://localhost:4000/categories
 Content-Type: application/json
 
 {
-  "menuId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
+  "menuId": "f86449c6-9387-437b-8ea5-1f6e77521eb8",
   "title": "Alcohol",
   "photo": "https://picture.com/32x32",
-  "isVisible": true
+  "is_visible": true
 }
 
 ### Get category models
@@ -55,7 +55,7 @@ Content-Type: application/json
   "menuId": "2c878543-ea83-4ca8-a3d7-8a4f4df231d1",
   "title": "Alcohol",
   "photo": "https://picture.com/32x32",
-  "isVisible": false
+  "is_visible": false
 }
 
 ### Get dishes from category model
@@ -73,7 +73,7 @@ Content-Type: application/json
   "title": "Луковый угар",
   "description": "some useful info",
   "photo": "https://picture.com/32x32",
-  "isPublish": true,
+  "is_publish": true,
   "ingredients": ["head", "arm", "leg", "eye", "nose"],
   "price": 300.0
 }
@@ -93,7 +93,7 @@ Content-Type: application/json
   "title": "Луковый угар",
   "description": "some useful info",
   "photo": "https://picture.com/32x32",
-  "isPublish": false,
+  "is_publish": false,
   "ingredients": ["head", "arm", "leg", "eye", "nose"],
   "price": 300.0
 }

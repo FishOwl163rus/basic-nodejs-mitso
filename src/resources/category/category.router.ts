@@ -1,7 +1,5 @@
 import { Request, Response, Router } from "express";
-import { Category } from "./category.model";
 import categoryService from "./category.service";
-
 const router: Router = Router();
 
 router.route('/').get(async (_req: Request, res: Response) => {
@@ -10,31 +8,50 @@ router.route('/').get(async (_req: Request, res: Response) => {
 });
 
 router.route('/').post(async (req: Request, res: Response) => {
-  const {menuId, title, photo, isVisible} = req.body
-  await categoryService.insertNew(new Category(menuId, title, photo, isVisible));
-  res.status(200).end();
+  const {menuId, title, photo, is_visible} = req.body
+  const category = await categoryService.createCategory({menuId, title, photo, is_visible});
+
+  if (category) {
+    res.status(201).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:categoryId').get(async (req: Request, res: Response) => {
-  const categories = await categoryService.getById(req.params["categoryId"]);
-  res.json(categories);
+  const category = await categoryService.getById(req.params["categoryId"] || '');
+  if (category) {
+    res.json(category);
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:categoryId/dishes').get(async (req: Request, res: Response) => {
-  const dishes = await categoryService.getDishes(req.params["categoryId"]);
+  const dishes = await categoryService.getDishes(req.params["categoryId"] || '');
   res.json(dishes);
 });
 
 router.route('/:categoryId').put(async (req: Request, res: Response) => {
-  const {menuId, title, photo, isVisible} = req.body
+  const {menuId, title, photo, is_visible} = req.body
   const {categoryId} = req.params
-  await categoryService.updateById(categoryId, new Category(menuId, photo, title, isVisible, categoryId));
-  res.status(200).end();
+  const result = await categoryService.updateById(categoryId || '', {menuId, photo, title, is_visible});
+
+  if (result.affected && result.affected > 0) {
+    res.status(200).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:categoryId').delete(async (req: Request, res: Response) => {
-  await categoryService.deleteById(req.params["categoryId"]);
-  res.status(200).end();
+  const result = await categoryService.deleteById(req.params["categoryId"] || '');
+
+  if (result.affected && result.affected > 0) {
+    res.status(200).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 export const CategoryRouter: Router = router;

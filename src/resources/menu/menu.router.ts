@@ -1,6 +1,5 @@
 import { Request, Response, Router } from "express";
 import menuService from "./menu.service";
-import { Menu } from "./menu.model";
 
 const router: Router = Router();
 
@@ -10,31 +9,51 @@ router.route('/').get(async (_req: Request, res: Response) => {
 });
 
 router.route('/').post(async (req: Request, res: Response) => {
-  const {title, photo, isPublish} = req.body
-  await menuService.insertNew(new Menu(title, photo, isPublish));
-  res.status(200).end();
+  const {title, photo, is_publish} = req.body
+  const menu = await menuService.createMenu({title, photo, is_publish});
+
+  if (menu) {
+    res.status(201).end();
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:menuId').get(async (req: Request, res: Response) => {
-  const menus = await menuService.getById(req.params["menuId"]);
-  res.json(menus);
+  const menu = await menuService.getById(req.params["menuId"] || '');
+
+  if (menu) {
+    res.json(menu);
+  } else {
+    res.status(400).end();
+  }
 });
 
 router.route('/:menuId').put(async (req: Request, res: Response) => {
-  const {title, photo, isPublish} = req.body
-  const {menuId} = req.params;
-  await menuService.updateById(menuId, new Menu(title, photo, isPublish, menuId));
-  res.status(200).end();
+  const {title, photo, is_publish} = req.body
+  const result = await menuService.updateById(req.params["menuId"] || '', {title, photo, is_publish});
+
+  if (result.affected && result.affected > 0){
+    res.status(200).end()
+  } else {
+    res.status(400).end()
+  }
+
 });
 
 router.route('/:menuId').delete(async (req: Request, res: Response) => {
-  await menuService.deleteById(req.params["menuId"]);
-  res.status(200).end();
+  const result = await menuService.deleteById(req.params["menuId"] || '');
+
+  if (result.affected && result.affected > 0){
+    res.status(200).end()
+  } else {
+    res.status(400).end()
+  }
 });
 
 router.route('/:menuId/categories').get(async (req: Request, res: Response) => {
-  await menuService.getMenuCategories(req.params["menuId"]);
-  res.status(200).end();
+  const categories = await menuService.getMenuCategories(req.params["menuId"] || '');
+  res.json(categories);
 });
 
 export const MenuRouter: Router = router;

@@ -1,19 +1,20 @@
-import menuRepository from "./menu.memory.repository";
-import { Menu } from "./menu.model";
-import { Category } from "../category/category.model";
+import menuRepository from "./menu.repository";
+import { Menu } from "./menu.entity";
+import { Category } from "../category/category.entity";
+import { DeleteResult, UpdateResult } from "typeorm";
 
 class MenuService {
-  public insertNew = (menu: Menu): Promise<void> => menuRepository.insertNew(menu)
+  public createMenu = ({title, photo, is_publish}: Omit<Menu, 'id' | 'categories'>): Promise<Menu> => menuRepository.createMenu({title, photo, is_publish})
 
   public getAll = (): Promise<Menu[]> => menuRepository.getAll()
 
-  public getById = (id: string | undefined): Promise<Menu[]> => menuRepository.getById(id)
+  public getById = (id: string): Promise<Menu | null> => menuRepository.getById(id)
 
-  public updateById = (id: string | undefined, menu: Menu): Promise<void> => menuRepository.updateById(id, menu)
+  public updateById = (id: string, {title, photo, is_publish}: Omit<Menu, 'id' | 'categories'>): Promise<UpdateResult> => menuRepository.updateById(id, {title, photo, is_publish})
 
-  public deleteById = (id: string | undefined): Promise<void> => menuRepository.deleteById(id)
+  public deleteById = (id: string): Promise<DeleteResult> => menuRepository.deleteById(id)
 
-  public getMenuCategories = (id: string | undefined): Promise<Category[]> => menuRepository.getMenuCategories(id)
+  public getMenuCategories = (id: string): Promise<Category[]> => menuRepository.getMenuCategories(id)
 }
 
 export default new MenuService()

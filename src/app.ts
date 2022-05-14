@@ -7,9 +7,18 @@ import { DishRouter} from './resources/dish/dish.router';
 import { CategoryRouter } from './resources/category/category.router';
 import { logger, exceptionsHandler } from "./middleware";
 import morgan from "morgan";
+import AppDataSource from "./common/appDataSource";
 
 dotenv.config();
 const app: express.Application = express();
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!")
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err)
+  });
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
